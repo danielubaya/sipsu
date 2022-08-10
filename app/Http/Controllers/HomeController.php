@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Perumahan;
 class HomeController extends Controller
 {
     /**
@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        
     }
 
     /**
@@ -24,6 +24,17 @@ class HomeController extends Controller
     public function index()
     {
         $active='dashboard';
+        
         return view('home',compact("active"));
     }
+
+    public function welcome()
+    {
+        $active='Peta';
+        $rs=Perumahan::where('wkt','<>','')->where('status','=','BAST FISIK')->get();
+       // dd($rs);
+        return view('welcome', compact("rs"));
+    }
+
+   
 }

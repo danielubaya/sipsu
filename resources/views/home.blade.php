@@ -10,14 +10,13 @@
                                         <p class="card-title-desc">Selamat datang di Aplikasi SIPSU Sistem Informasi Prasarana, Sarana, dan Utilitas.
                                         </p>    
                                         
-                                        <div class="col-md-6">
+                                        <div class="col-md-9">
                                             <div class="card mg-b-20 mg-md-b-0">
                                                 <div class="card-body">
                                                     <div class="main-content-label mg-b-5">
-                                                        Pie Chart
+                                                        Total per Status Permohonan
                                                     </div>
-                                                    <p class="mg-b-20 card-sub-title tx-12 text-muted">Basic Charts Of Dashfox template.</p>
-                                                    <div class="ht-200 ht-sm-300" id="flotPie1"></div>
+                                                    <div class="ht-400 ht-sm-500" id="flotPie1"></div>
                                                 </div>
                                             </div>
                                         </div><!-- col-6 -->
@@ -38,36 +37,45 @@
 
 /**************** PIE CHART *******************/
 	var piedata = [{
-		label: 'Series 1',
+		label: 'PENAGIHAN ADMINISTRASI',
 		data: [
-			[1, 90]
+			[1, 82]
 		],
 		color: '#5066e0'
 	}, {
-		label: 'Series 2',
+		label: 'PROSES ADMINISTRASI',
 		data: [
-			[1, 60]
+			[1, 48]
 		],
 		color: '#ff8c00'
 	}, {
-		label: 'Series 3',
+		label: 'PENAGIHAN FISIK',
 		data: [
-			[1, 20]
+			[1, 79]
 		],
 		color: '#00d48f '
 	}, {
-		label: 'Series 4',
+		label: 'PROSES FISIK',
 		data: [
-			[1, 50]
+			[1, 32]
 		],
 		color: '#ffc107'
 	}, {
-		label: 'Series 5',
+		label: 'BAST FISIK',
 		data: [
-			[1, 40]
+			[1, 126]
 		],
 		color: '#02d7ff'
-	}];
+	}, {
+		label: 'PENYERAHAN OLEH WARGA',
+		data: [
+			[1, 58]
+		],
+		color: '#D2575f'
+	}
+    
+    
+    ];
 	$.plot('#flotPie1', piedata, {
 		series: {
 			pie: {

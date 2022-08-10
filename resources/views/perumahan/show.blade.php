@@ -9,7 +9,15 @@
                             <i class="fe fe-home"></i> Perumahan</a></li>
 						<li><a href="#tab2" data-toggle="tab">
                             <i class="fe fe-user"></i> Pengembang</a></li>
-						<li><a href="#tab3" data-toggle="tab">
+						<li><a href="#tab3" data-toggle="tab"
+                            onclick="
+                            
+			setTimeout(function() {
+				map.invalidateSize();
+				//alert('disini');
+			}, 1000);
+			"
+                            >
                             <i class="fe fe-map"></i> Siteplan</a></li>
 						<li><a href="#tab4" data-toggle="tab">
                             <i class="fe fe-minimize"></i> Detail PSU</a></li>
@@ -33,6 +41,107 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab1">
                     <p >
+                        @if($r->wkt)
+                        <div class="row align-items-center mg-b-20">
+                            <div class="col-md-12">
+                                <div id='map' style="height:400px">
+
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+
+@if($r->wkt)
+<script>
+          L.Map = L.Map.extend({
+ 	        openPopup: function (popup, latlng, options) { 
+          if (!(popup instanceof L.Popup)) {
+          var content = popup;
+        
+          popup = new L.Popup(options).setContent(content);
+        }
+        
+        if (latlng) {
+          popup.setLatLng(latlng);
+        }
+        
+        if (this.hasLayer(popup)) {
+          return this;
+        }
+        
+        //this.closePopup();
+        this._popup = popup;
+        return this.addLayer(popup);        
+    }
+});
+
+
+var wkt = new Wkt.Wkt();
+	wkt.read("{{$r->wkt}}"); 
+
+	var feature = wkt.toObject(); 
+
+       map = new L.Map('map', { zoomsliderControl: true, zoomControl: false }).setView(feature.getBounds().getCenter(), 15);
+      var osm=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {});
+      osm.addTo(map);     
+
+      var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{ maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3'] });
+
+      var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{ maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3'] });
+
+      var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{ maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3']
+      });
+  
+    //  var ubaya= L.marker([ {{$r->y}} ,{{$r->x}}]).bindPopup("{{$r->alamat}}, RT {{$r->rt}}, RW {{$r->rw}}");
+    //ubaya.addTo(map);
+
+	feature.addTo(map); 
+
+ var myIcon = L.icon({
+    iconUrl: 'icons/libraries.png',
+    iconSize: [30, 40],
+    iconAnchor: [15, 40],
+ }); 
+
+
+ 	  var overlayMaps={     
+       "Siteplan":feature,
+  	   }	
+
+      var baseMaps = {
+      "OpenStreetMap": osm,
+      "Google Street":googleStreets,
+      "Google Satellite": googleSat,
+      "google Hybrid":googleHybrid,
+    };
+    
+    L.control.layers(baseMaps,overlayMaps).addTo(map);
+
+    var ctEasybtn=L.easyButton(' <span>&target;</span>',
+     function() {
+       map.locate({setView : true})
+     });
+     ctEasybtn.addTo(map);
+
+  
+      map.on('click', function(e) {
+          //alert(e.latlng.lng);
+        console.log(e.latlng.lat,e.latlng.lng);
+        $('#new_x').val(e.latlng.lng);
+        $('#new_y').val(e.latlng.lat);
+        ubaya.setLatLng(e.latlng)
+      });
+  //var c = 
+
+  setTimeout(function() {
+        map.invalidateSize();
+    }, 1000);
+
+    </script>
+  @endif
+
+
                         <div class="row align-items-center mg-b-20">
                             <div class="col-md-12">
                                 <label class="form-label mg-b-0">Nama Perumahan</label>
@@ -111,6 +220,7 @@
 
 				<div class="tab-pane" id="tab3">
                     <p >
+                       
                         <div class="row align-items-center mg-b-20">
                             <div class="col-md-12">
                                 <label class="form-label mg-b-0">Jenis Siteplan</label>

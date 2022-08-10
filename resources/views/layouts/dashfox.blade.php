@@ -54,6 +54,56 @@
 		<!---Skinmodes css-->
 		<link href="{{asset('assets/css/skin-modes.css')}}" rel="stylesheet" />
 
+
+
+		   
+        <!--LEAFLET-->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+crossorigin=""/>
+<!--
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin=""></script>-->
+<script src="{{asset('leaflet/leaflet-src.js')}}" type="text/javascript"></script>  
+
+
+	  <link rel="stylesheet" href="{{asset('leaflet/plugins/leaflet.wmslegend.css')}}" type="text/css">
+<script src="{{asset('leaflet/plugins/leaflet.wmslegend.js')}}" type="text/javascript"></script>  
+
+  <link rel="stylesheet" href="{{asset('leaflet/plugins/L.Control.Pan.css')}}" type="text/css">
+<script src="{{asset('leaflet/plugins/L.Control.Pan.js')}}" type="text/javascript"></script>  
+
+  <link rel="stylesheet" href="{{asset('leaflet/plugins/L.Control.Zoomslider.css')}}" type="text/css">
+<script src="{{asset('leaflet/plugins/L.Control.Zoomslider.js')}}" type="text/javascript"></script> 
+
+  <link rel="stylesheet" href="{{asset('leaflet/plugins/L.Control.BetterScale.css')}}" type="text/css">
+<script src="{{asset('leaflet/plugins/L.Control.BetterScale.js')}}" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="{{asset('leaflet/plugins/L.Control.MousePosition.css')}}" type="text/css">
+<script src="{{asset('leaflet/plugins/L.Control.MousePosition.js')}}" type="text/javascript"></script>  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.3.2/leaflet.draw.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.3.2/leaflet.draw.js"></script>    
+  <link rel="stylesheet" href="{{asset('leaflet/plugins/leaflet.measurecontrol.css')}}" type="text/css">
+  <script src="{{asset('leaflet/plugins/leaflet.measurecontrol.js')}}" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="{{asset('leaflet/plugins/easy-button.css')}}" type="text/css">
+  <script src="{{asset('leaflet/plugins/easy-button.js')}}" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="{{asset('leaflet/plugins/L.Control.Sidebar.css')}}" type="text/css">
+  <script src="{{asset('leaflet/plugins/L.Control.Sidebar.js')}}" type="text/javascript"></script>
+
+  <script src="{{asset('leaflet/plugins/leaflet.ajax.js')}}" type="text/javascript"></script>
+  <link rel="stylesheet" href="{{asset('leaflet/plugins/leaflet-search.css')}}" type="text/css">
+
+  <script src="{{asset('leaflet/plugins/leaflet-search.js')}}" type="text/javascript"></script>
+
+  <script src="{{asset('leaflet/plugins/wicket.js')}}" type="text/javascript"></script>
+
+  <script src="{{asset('leaflet/plugins/wicket-leaflet.js')}}" type="text/javascript"></script>
+   
 	</head>
 	<body class="main-body light-theme app sidebar-mini active leftmenu-color">
 
@@ -66,7 +116,7 @@
 		<!-- main-sidebar -->
 		<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 		<aside class="app-sidebar">
-            <div style="margin-top:10px;margin-left:10px">Hai, {{Auth::user()->name}} !</div>
+            <div style="margin-top:10px;margin-left:10px">Hi,@if(Auth::check()) {{Auth::user()->name}} @endif !</div>
 				
             <div class="main-sidebar-header active">
                 <a class="desktop-logo active" href="index.html">
@@ -91,6 +141,7 @@
 						<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 20 20" width="20"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg>
 						<span class="side-menu__label">Dashboard</span></a>
 					</li>
+                    <!--
 					<li class="slide">
 						<a class="side-menu__item
                         @if($active=='new')
@@ -102,6 +153,7 @@
                         </svg>
 						<span class="side-menu__label" >Buat Permohonan Baru</span></a>
 					</li>
+                -->
                     <li class="slide">
 						<a class="side-menu__item
                         @if($active=='Permohonan Baru')
@@ -198,10 +250,25 @@
 						<span class="side-menu__label">Lain-lain</span></a>
 					</li>
 
+					<li class="slide">
+						<a class="side-menu__item
+                        @if($active=='Peta')
+                        active
+                        @endif
+                        " href="/dokumen/peta"><div class="side-angle1"></div><div class="side-angle2"></div><div class="side-arrow"></div>
+                            <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 16 16" width="16">
+                                <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.502.502 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5V.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.498.498 0 0 0-.196 0L5 14.09zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1-.5-.1z"/>
+							</svg>
+						<span class="side-menu__label">Peta Sebaran Siteplan</span></a>
+					</li>
+
+
+
+					
 				
 				</ul>
 				<div class="app-sidefooter">
-					<a class="side-menu__item" href=""><svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><path d="M11,7L9.6,8.4l2.6,2.6H2v2h10.2l-2.6,2.6L11,17l5-5L11,7z M20,19h-8v2h8c1.1,0,2-0.9,2-2V5c0-1.1-0.9-2-2-2h-8v2h8V19z"/></g></svg> <span class="side-menu__label">Logout</span></a>
+					<a class="side-menu__item" href="logout"><svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><path d="M11,7L9.6,8.4l2.6,2.6H2v2h10.2l-2.6,2.6L11,17l5-5L11,7z M20,19h-8v2h8c1.1,0,2-0.9,2-2V5c0-1.1-0.9-2-2-2h-8v2h8V19z"/></g></svg> <span class="side-menu__label">Logout</span></a>
 				</div>
 			</div>
 		</aside>
@@ -391,7 +458,7 @@
                 @yield("javasc")
             });
 
-
+			var map;
             var pubdir="{{asset('')}}";
 
             function show_detail_perumahan(id,judul){
@@ -405,6 +472,9 @@
                     }
                 });
             }
+
+
+			
         </Script>
 
 

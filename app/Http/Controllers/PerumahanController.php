@@ -12,6 +12,15 @@ class PerumahanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+    
     public function index()
     {
         //
@@ -149,6 +158,14 @@ class PerumahanController extends Controller
         $rs=Perumahan::where('tahap','=','LAIN-LAIN')->get();
        // dd($rs);
         return view('perumahan.lainlain', compact("rs","active"));
+    }
+
+    public function peta()
+    {
+        $active='Peta';
+        $rs=Perumahan::where('wkt','<>','')->get();
+       // dd($rs);
+        return view('perumahan.peta', compact("rs","active"));
     }
 
 }
